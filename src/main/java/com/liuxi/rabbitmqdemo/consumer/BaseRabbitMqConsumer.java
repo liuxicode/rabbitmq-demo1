@@ -51,7 +51,8 @@ public interface BaseRabbitMqConsumer {
         return retryCount;
     }
 
-    @RabbitHandler
+    //@RabbitHandler
+    @RabbitListener(queues = RabbitMqConfig.RABBITMQQUEUE)
     public default void processMessage(@Payload Message message, @Header(AmqpHeaders.DELIVERY_TAG) long deliveryTag, Channel channel){
 
         String messageStr = String.valueOf(message.getBody());
