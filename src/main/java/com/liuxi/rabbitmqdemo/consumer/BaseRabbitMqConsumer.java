@@ -51,13 +51,10 @@ public interface BaseRabbitMqConsumer {
         return retryCount;
     }
 
-    //@RabbitHandler
-    @RabbitListener(queues = RabbitMqConfig.RABBITMQQUEUE)
+    @RabbitHandler
     public default void processMessage(@Payload Message message, @Header(AmqpHeaders.DELIVERY_TAG) long deliveryTag, Channel channel){
 
-        int i = 1/0;
-
-        /*String messageStr = String.valueOf(message.getBody());
+        String messageStr = String.valueOf(message.getBody());
 
         try {
 
@@ -103,7 +100,7 @@ public interface BaseRabbitMqConsumer {
 
 
 
-        }*/
+        }
 
     }
 

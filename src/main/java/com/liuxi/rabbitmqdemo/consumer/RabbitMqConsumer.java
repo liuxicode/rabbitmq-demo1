@@ -9,6 +9,7 @@ import org.slf4j.LoggerFactory;
 import org.springframework.amqp.core.Message;
 import org.springframework.amqp.rabbit.annotation.RabbitHandler;
 import org.springframework.amqp.rabbit.annotation.RabbitListener;
+import org.springframework.amqp.rabbit.listener.exception.ListenerExecutionFailedException;
 import org.springframework.amqp.support.AmqpHeaders;
 import org.springframework.messaging.handler.annotation.Header;
 import org.springframework.messaging.handler.annotation.Headers;
@@ -32,7 +33,13 @@ public class RabbitMqConsumer {
     @RabbitListener(queues = RabbitMqConfig.RABBITMQQUEUE)
     public void processMessage(@Payload Message message, @Header(AmqpHeaders.DELIVERY_TAG) long deliveryTag, Channel channel){
 
-        int i = 1/0;
+        try {
+            int i = 1/0;
+        }catch (RuntimeException le){
+            logger.info(le.getMessage());
+        }catch (Exception e){
+            throw e;
+        }
 
     }
 
